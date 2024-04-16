@@ -12,10 +12,11 @@ import "dotenv/config";
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas'
 mongoose.connect(CONNECTION_STRING);
 const app = express();
-app.use(cors({
-    credentials: true,
-    origin: process.env.FRONTEND_URL || 'https://a6--thriving-churros-07de8c.netlify.app',
-}));
+// app.use(cors({
+//     credentials: true,
+//     origin: process.env.FRONTEND_URL || 'https://a6--thriving-churros-07de8c.netlify.app',
+// }));
+app.use(cors());
 const sessionOptions = {
     secret: process.env.SESSION_SECRET,
     resave: false,
