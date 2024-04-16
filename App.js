@@ -12,10 +12,31 @@ import "dotenv/config";
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas'
 mongoose.connect(CONNECTION_STRING);
 const app = express();
+
+// GitHub branches
+const branches = ["main", "a6", "project"];
+
+const strippedNetlifyUrl = process.env.NETLIFY_URL.replace("https://", "")
+const allowedOrigins = [process.env.FRONTEND_URL, ...branches.map((branch) => `https://${branch}--${strippedNetlifyUrl}`)];
+console.log(allowedOrigins)
+
 app.use(cors({
     credentials: true,
-    origin: 'https://a6--thriving-churros-07de8c.netlify.app' || process.env.FRONTEND_URL, // process.env.FRONTEND_URL || 
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+        return callback(new Error(msg), false);
+      }
+    }
 }));
+// app.use(cors({
+//     credentials: true,
+//     origin: 'https://a6--thriving-churros-07de8c.netlify.app', // process.env.FRONTEND_URL || 
+// }));
+
+
 const sessionOptions = {
     secret: process.env.SESSION_SECRET,
     resave: false,
