@@ -14,7 +14,7 @@ mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(cors({
     credentials: true,
-    origin: 'https://a6--thriving-churros-07de8c.netlify.app', // process.env.FRONTEND_URL || 
+    origin: 'https://a6--thriving-churros-07de8c.netlify.app' || process.env.FRONTEND_URL, // process.env.FRONTEND_URL || 
 }));
 const sessionOptions = {
     secret: process.env.SESSION_SECRET,
