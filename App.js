@@ -31,11 +31,6 @@ app.use(cors({
       }
     }
 }));
-// app.use(cors({
-//     credentials: true,
-//     origin: 'https://a6--thriving-churros-07de8c.netlify.app', // process.env.FRONTEND_URL || 
-// }));
-
 
 const sessionOptions = {
     secret: process.env.SESSION_SECRET,
